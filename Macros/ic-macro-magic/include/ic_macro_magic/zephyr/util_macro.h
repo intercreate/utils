@@ -31,7 +31,7 @@ extern "C" {
  * below (APIs like IS_ENABLED(), COND_CODE_1(), etc.) are hidden away
  * in this file.
  */
-#include <zephyr/sys/util_internal.h>
+#include "util_internal.h"
 
 #ifndef _IC_Z_BIT
 #if defined(_ASMLANGUAGE)
