@@ -148,7 +148,7 @@
 #define _IC_Z_MACRO_MC_13(m, a, ...) _IC_Z_UTIL_CAT(m(a), _IC_Z_MACRO_MC_12(m, __VA_ARGS__,))
 #define _IC_Z_MACRO_MC_14(m, a, ...) _IC_Z_UTIL_CAT(m(a), _IC_Z_MACRO_MC_13(m, __VA_ARGS__,))
 #define _IC_Z_MACRO_MC_15(m, a, ...) _IC_Z_UTIL_CAT(m(a), _IC_Z_MACRO_MC_14(m, __VA_ARGS__,))
-_IC_Z_
+
 /* Used by Z_IS_EQ */
 #define _IC_Z_Z_IS_0_EQ_0(...) \,
 #define _IC_Z_Z_IS_1_EQ_1(...) \,
