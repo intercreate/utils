@@ -14,8 +14,8 @@
  * should be include instead <sys/util_internal.h>
  */
 
-#ifndef ZEPHYR_INCLUDE_SYS_UTIL_MACROS_H_
-#define ZEPHYR_INCLUDE_SYS_UTIL_MACROS_H_
+#ifndef _IC_Z_ZEPHYR_INCLUDE_SYS_UTIL_MACROS_H_
+#define _IC_Z_ZEPHYR_INCLUDE_SYS_UTIL_MACROS_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -33,20 +33,20 @@ extern "C" {
  */
 #include <zephyr/sys/util_internal.h>
 
-#ifndef BIT
+#ifndef _IC_Z_BIT
 #if defined(_ASMLANGUAGE)
-#define BIT(n)  (1 << (n))
+#define _IC_Z_BIT(n)  (1 << (n))
 #else
 /**
  * @brief Unsigned integer with bit position @p n set (signed in
  * assembly language).
  */
-#define BIT(n)  (1UL << (n))
+#define _IC_Z_BIT(n)  (1UL << (n))
 #endif
 #endif
 
 /** @brief 64-bit unsigned integer with bit position @p _n set. */
-#define BIT64(_n) (1ULL << (_n))
+#define _IC_Z_BIT64(_n) (1ULL << (_n))
 
 /**
  * @brief Set or clear a bit depending on a boolean value
@@ -58,23 +58,23 @@ extern "C" {
  * @param bit Bit number
  * @param set if 0, clears @p bit in @p var; any other value sets @p bit
  */
-#define WRITE_BIT(var, bit, set) \
+#define _IC_Z_WRITE_BIT(var, bit, set) \
 	((var) = (set) ? ((var) | BIT(bit)) : ((var) & ~BIT(bit)))
 
 /**
  * @brief Bit mask with bits 0 through <tt>n-1</tt> (inclusive) set,
  * or 0 if @p n is 0.
  */
-#define BIT_MASK(n) (BIT(n) - 1UL)
+#define _IC_Z_BIT_MASK(n) (BIT(n) - 1UL)
 
 /**
  * @brief 64-bit bit mask with bits 0 through <tt>n-1</tt> (inclusive) set,
  * or 0 if @p n is 0.
  */
-#define BIT64_MASK(n) (BIT64(n) - 1ULL)
+#define _IC_Z_BIT64_MASK(n) (BIT64(n) - 1ULL)
 
 /** @brief Check if a @p x is a power of two */
-#define IS_POWER_OF_TWO(x) (((x) != 0U) && (((x) & ((x) - 1U)) == 0U))
+#define _IC_Z_IS_POWER_OF_TWO(x) (((x) != 0U) && (((x) & ((x) - 1U)) == 0U))
 
 /**
  * @brief Check if bits are set continuously from the specified bit
@@ -84,14 +84,14 @@ extern "C" {
  * @param m Check whether the bits are set continuously or not.
  * @param s Specify the lowest bit for that is continuously set bits.
  */
-#define IS_SHIFTED_BIT_MASK(m, s) (!(((m) >> (s)) & (((m) >> (s)) + 1U)))
+#define _IC_Z_IS_SHIFTED_BIT_MASK(m, s) (!(((m) >> (s)) & (((m) >> (s)) + 1U)))
 
 /**
  * @brief Check if bits are set continuously from the LSB.
  *
  * @param m Check whether the bits are set continuously from LSB.
  */
-#define IS_BIT_MASK(m) IS_SHIFTED_BIT_MASK(m, 0)
+#define _IC_Z_IS_BIT_MASK(m) IS_SHIFTED_BIT_MASK(m, 0)
 
 /**
  * @brief Check for macro definition in compiler-visible expressions
@@ -121,7 +121,7 @@ extern "C" {
  * @return 1 if @p config_macro is defined to 1, 0 otherwise (including
  *         if @p config_macro is not defined)
  */
-#define IS_ENABLED(config_macro) Z_IS_ENABLED1(config_macro)
+#define _IC_Z_IS_ENABLED(config_macro) Z_IS_ENABLED1(config_macro)
 /* INTERNAL: the first pass above is just to expand any existing
  * macros, we need the macro value to be e.g. a literal "1" at
  * expansion time in the next macro, not "(1)", etc... Standard
@@ -153,9 +153,9 @@ extern "C" {
  * This could be used as an alternative to:
  *
  *     #if defined(CONFIG_FLAG) && (CONFIG_FLAG == 1)
- *     #define MAYBE_DECLARE(x) uint32_t x
+ *     #define _IC_Z_MAYBE_DECLARE(x) uint32_t x
  *     #else
- *     #define MAYBE_DECLARE(x) there_is_no_flag()
+ *     #define _IC_Z_MAYBE_DECLARE(x) there_is_no_flag()
  *     #endif
  *
  *     MAYBE_DECLARE(x);
@@ -176,7 +176,7 @@ extern "C" {
  * @param _if_1_code result if @p _flag expands to 1; must be in parentheses
  * @param _else_code result otherwise; must be in parentheses
  */
-#define COND_CODE_1(_flag, _if_1_code, _else_code) \
+#define _IC_Z_COND_CODE_1(_flag, _if_1_code, _else_code) \
 	Z_COND_CODE_1(_flag, _if_1_code, _else_code)
 
 /**
@@ -192,7 +192,7 @@ extern "C" {
  * @param _else_code result otherwise; must be in parentheses
  * @see COND_CODE_1()
  */
-#define COND_CODE_0(_flag, _if_0_code, _else_code) \
+#define _IC_Z_COND_CODE_0(_flag, _if_0_code, _else_code) \
 	Z_COND_CODE_0(_flag, _if_0_code, _else_code)
 
 /**
@@ -220,7 +220,7 @@ extern "C" {
  * @param _flag evaluated flag
  * @param _code result if @p _flag expands to 1; must be in parentheses
  */
-#define IF_ENABLED(_flag, _code) \
+#define _IC_Z_IF_ENABLED(_flag, _code) \
 	COND_CODE_1(_flag, _code, ())
 
 /**
@@ -235,8 +235,8 @@ extern "C" {
  *
  * Example:
  *
- *	#define EMPTY
- *	#define NON_EMPTY	1
+ *	#define _IC_Z_EMPTY
+ *	#define _IC_Z_NON_EMPTY	1
  *	#undef  UNDEFINED
  *	IS_EMPTY(EMPTY)
  *	IS_EMPTY(NON_EMPTY)
@@ -250,7 +250,7 @@ extern "C" {
  *
  * @param ... macro to check for emptiness (may be `__VA_ARGS__`)
  */
-#define IS_EMPTY(...) Z_IS_EMPTY_(__VA_ARGS__)
+#define _IC_Z_IS_EMPTY(...) Z_IS_EMPTY_(__VA_ARGS__)
 
 /**
  * @brief Like <tt>a == b</tt>, but does evaluation and
@@ -259,7 +259,7 @@ extern "C" {
  * This however only works for integer literal from 0 to 255.
  *
  */
-#define IS_EQ(a, b) Z_IS_EQ(a, b)
+#define _IC_Z_IS_EQ(a, b) Z_IS_EQ(a, b)
 
 /**
  * @brief Remove empty arguments from list.
@@ -267,7 +267,7 @@ extern "C" {
  * During macro expansion, `__VA_ARGS__` and other preprocessor
  * generated lists may contain empty elements, e.g.:
  *
- *	#define LIST ,a,b,,d,
+ *	#define _IC_Z_LIST ,a,b,,d,
  *
  * Using EMPTY to show each empty element, LIST contains:
  *
@@ -288,7 +288,7 @@ extern "C" {
  *
  * @param ... list to be processed
  */
-#define LIST_DROP_EMPTY(...) \
+#define _IC_Z_LIST_DROP_EMPTY(...) \
 	Z_LIST_DROP_FIRST(FOR_EACH(Z_LIST_NO_EMPTIES, (), __VA_ARGS__))
 
 /**
@@ -300,15 +300,15 @@ extern "C" {
  *
  * Example:
  *
- *	#define LIST_ITEM(n) , item##n
+ *	#define _IC_Z_LIST_ITEM(n) , item##n
  *
  * The above would cause checkpatch to complain, but:
  *
- *	#define LIST_ITEM(n) EMPTY, item##n
+ *	#define _IC_Z_LIST_ITEM(n) EMPTY, item##n
  *
  * would not.
  */
-#define EMPTY
+#define _IC_Z_EMPTY
 
 /**
  * @brief Macro that expands to its argument
@@ -318,7 +318,7 @@ extern "C" {
  *
  * @param V any value
  */
-#define IDENTITY(V) V
+#define _IC_Z_IDENTITY(V) V
 
 /**
  * @brief Get nth argument from argument list.
@@ -328,7 +328,7 @@ extern "C" {
  *
  * @return Nth argument.
  */
-#define GET_ARG_N(N, ...) Z_GET_ARG_##N(__VA_ARGS__)
+#define _IC_Z_GET_ARG_N(N, ...) Z_GET_ARG_##N(__VA_ARGS__)
 
 /**
  * @brief Strips n first arguments from the argument list.
@@ -338,7 +338,7 @@ extern "C" {
  *
  * @return argument list without N first arguments.
  */
-#define GET_ARGS_LESS_N(N, ...) Z_GET_ARGS_LESS_##N(__VA_ARGS__)
+#define _IC_Z_GET_ARGS_LESS_N(N, ...) Z_GET_ARGS_LESS_##N(__VA_ARGS__)
 
 /**
  * @brief Like <tt>a || b</tt>, but does evaluation and
@@ -351,7 +351,7 @@ extern "C" {
  * This can be useful when @p b is an expression that would cause a
  * build error when @p a is 1.
  */
-#define UTIL_OR(a, b) COND_CODE_1(UTIL_BOOL(a), (a), (b))
+#define _IC_Z_UTIL_OR(a, b) COND_CODE_1(UTIL_BOOL(a), (a), (b))
 
 /**
  * @brief Like <tt>a && b</tt>, but does evaluation and
@@ -364,7 +364,7 @@ extern "C" {
  * This can be useful when @p b is an expression that would cause a
  * build error when @p a is 0.
  */
-#define UTIL_AND(a, b) COND_CODE_1(UTIL_BOOL(a), (b), (0))
+#define _IC_Z_UTIL_AND(a, b) COND_CODE_1(UTIL_BOOL(a), (b), (0))
 
 /**
  * @brief UTIL_INC(x) for an integer literal x from 0 to 255 expands to an
@@ -372,7 +372,7 @@ extern "C" {
  *
  * @see UTIL_DEC(x)
  */
-#define UTIL_INC(x) UTIL_PRIMITIVE_CAT(UTIL_INC_, x)
+#define _IC_Z_UTIL_INC(x) UTIL_PRIMITIVE_CAT(UTIL_INC_, x)
 
 /**
  * @brief UTIL_DEC(x) for an integer literal x from 0 to 255 expands to an
@@ -380,13 +380,13 @@ extern "C" {
  *
  * @see UTIL_INC(x)
  */
-#define UTIL_DEC(x) UTIL_PRIMITIVE_CAT(UTIL_DEC_, x)
+#define _IC_Z_UTIL_DEC(x) UTIL_PRIMITIVE_CAT(UTIL_DEC_, x)
 
 /**
  * @brief UTIL_X2(y) for an integer literal y from 0 to 255 expands to an
  * integer literal whose value is 2y.
  */
-#define UTIL_X2(y) UTIL_PRIMITIVE_CAT(UTIL_X2_, y)
+#define _IC_Z_UTIL_X2(y) UTIL_PRIMITIVE_CAT(UTIL_X2_, y)
 
 
 /**
@@ -394,7 +394,7 @@ extern "C" {
  *
  * Example:
  *
- *     #define FOO(i, _) MY_PWM ## i
+ *     #define _IC_Z_FOO(i, _) MY_PWM ## i
  *     { LISTIFY(PWM_COUNT, FOO, (,)) }
  *
  * The above two lines expand to:
@@ -415,7 +415,7 @@ extern "C" {
  * @note Calling LISTIFY with undefined arguments has undefined
  * behavior.
  */
-#define LISTIFY(LEN, F, sep, ...) UTIL_CAT(Z_UTIL_LISTIFY_, LEN)(F, sep, __VA_ARGS__)
+#define _IC_Z_LISTIFY(LEN, F, sep, ...) UTIL_CAT(Z_UTIL_LISTIFY_, LEN)(F, sep, __VA_ARGS__)
 
 /**
  * @brief Call a macro @p F on each provided argument with a given
@@ -423,7 +423,7 @@ extern "C" {
  *
  * Example:
  *
- *     #define F(x) int a##x
+ *     #define _IC_Z_F(x) int a##x
  *     FOR_EACH(F, (;), 4, 5, 6);
  *
  * This expands to:
@@ -438,7 +438,7 @@ extern "C" {
  * @param ... Variable argument list. The macro @p F is invoked as
  *            <tt>F(element)</tt> for each element in the list.
  */
-#define FOR_EACH(F, sep, ...) \
+#define _IC_Z_FOR_EACH(F, sep, ...) \
 	Z_FOR_EACH(F, sep, REVERSE_ARGS(__VA_ARGS__))
 
 /**
@@ -469,7 +469,7 @@ extern "C" {
  * One example is when `__VA_ARGS__` may or may not be empty,
  * and the results are embedded in a larger initializer:
  *
- *     #define SQUARE(x) ((x)*(x))
+ *     #define _IC_Z_SQUARE(x) ((x)*(x))
  *
  *     int my_array[] = {
  *             FOR_EACH_NONEMPTY_TERM(SQUARE, (,), FOO(...))
@@ -493,7 +493,7 @@ extern "C" {
  * @param ... Variable argument list. The macro @p F is invoked as
  *            <tt>F(element)</tt> for each nonempty element in the list.
  */
-#define FOR_EACH_NONEMPTY_TERM(F, term, ...)				\
+#define _IC_Z_FOR_EACH_NONEMPTY_TERM(F, term, ...)				\
 	COND_CODE_0(							\
 		/* are there zero non-empty arguments ? */		\
 		NUM_VA_ARGS_LESS_1(LIST_DROP_EMPTY(__VA_ARGS__, _)),	\
@@ -515,7 +515,7 @@ extern "C" {
  *
  * Example:
  *
- *     #define F(idx, x) int a##idx = x
+ *     #define _IC_Z_F(idx, x) int a##idx = x
  *     FOR_EACH_IDX(F, (;), 4, 5, 6);
  *
  * This expands to:
@@ -530,7 +530,7 @@ extern "C" {
  * @param ... Variable argument list. The macro @p F is invoked as
  *            <tt>F(index, element)</tt> for each element in the list.
  */
-#define FOR_EACH_IDX(F, sep, ...) \
+#define _IC_Z_FOR_EACH_IDX(F, sep, ...) \
 	Z_FOR_EACH_IDX(F, sep, REVERSE_ARGS(__VA_ARGS__))
 
 /**
@@ -558,7 +558,7 @@ extern "C" {
  * @param ... Variable argument list. The macro @p F is invoked as
  *            <tt>F(element, fixed_arg)</tt> for each element in the list.
  */
-#define FOR_EACH_FIXED_ARG(F, sep, fixed_arg, ...) \
+#define _IC_Z_FOR_EACH_FIXED_ARG(F, sep, fixed_arg, ...) \
 	Z_FOR_EACH_FIXED_ARG(F, sep, fixed_arg, REVERSE_ARGS(__VA_ARGS__))
 
 /**
@@ -569,7 +569,7 @@ extern "C" {
  *
  * Example:
  *
- *     #define F(idx, x, fixed_arg) int fixed_arg##idx = x
+ *     #define _IC_Z_F(idx, x, fixed_arg) int fixed_arg##idx = x
  *     FOR_EACH_IDX_FIXED_ARG(F, (;), a, 4, 5, 6);
  *
  * This expands to:
@@ -586,14 +586,14 @@ extern "C" {
  *            <tt>F(index, element, fixed_arg)</tt> for each element in
  *            the list.
  */
-#define FOR_EACH_IDX_FIXED_ARG(F, sep, fixed_arg, ...) \
+#define _IC_Z_FOR_EACH_IDX_FIXED_ARG(F, sep, fixed_arg, ...) \
 	Z_FOR_EACH_IDX_FIXED_ARG(F, sep, fixed_arg, REVERSE_ARGS(__VA_ARGS__))
 
 /** @brief Reverse arguments order.
  *
  * @param ... Variable argument list.
  */
-#define REVERSE_ARGS(...) \
+#define _IC_Z_REVERSE_ARGS(...) \
 	Z_FOR_EACH_ENGINE(Z_FOR_EACH_EXEC, (,), Z_BYPASS, _, __VA_ARGS__)
 
 /**
@@ -602,7 +602,7 @@ extern "C" {
  * @param ... List of arguments
  * @return  Number of variadic arguments in the argument list, minus one
  */
-#define NUM_VA_ARGS_LESS_1(...) \
+#define _IC_Z_NUM_VA_ARGS_LESS_1(...) \
 	NUM_VA_ARGS_LESS_1_IMPL(__VA_ARGS__, 63, 62, 61, \
 	60, 59, 58, 57, 56, 55, 54, 53, 52, 51,		 \
 	50, 49, 48, 47, 46, 45, 44, 43, 42, 41,		 \
@@ -620,7 +620,7 @@ extern "C" {
  *
  * For example, with this macro FOO:
  *
- *     #define FOO(x) item_##x##_
+ *     #define _IC_Z_FOO(x) item_##x##_
  *
  * <tt>MACRO_MAP_CAT(FOO, a, b, c),</tt> expands to the token:
  *
@@ -631,7 +631,7 @@ extern "C" {
  * @return The results of expanding the macro on each argument, all pasted
  *         together
  */
-#define MACRO_MAP_CAT(...) MACRO_MAP_CAT_(__VA_ARGS__)
+#define _IC_Z_MACRO_MAP_CAT(...) MACRO_MAP_CAT_(__VA_ARGS__)
 
 /**
  * @brief Mapping macro that pastes a fixed number of results together
@@ -646,7 +646,7 @@ extern "C" {
  * @return The results of expanding the macro on each argument, all pasted
  *         together
  */
-#define MACRO_MAP_CAT_N(N, ...) MACRO_MAP_CAT_N_(N, __VA_ARGS__)
+#define _IC_Z_MACRO_MAP_CAT_N(N, ...) MACRO_MAP_CAT_N_(N, __VA_ARGS__)
 
 /**
  * @}
