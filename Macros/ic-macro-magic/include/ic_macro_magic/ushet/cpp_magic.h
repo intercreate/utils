@@ -71,16 +71,16 @@
  * expression.
  */
 #define _IC_M_EVAL(...) _IC_M_EVAL1024(__VA_ARGS__)
-#define _IC_M_EVAL1024(...) _IC_M_EVAL512(EVAL512(__VA_ARGS__))
-#define _IC_M_EVAL512(...) _IC_M_EVAL256(EVAL256(__VA_ARGS__))
-#define _IC_M_EVAL256(...) _IC_M_EVAL128(EVAL128(__VA_ARGS__))
-#define _IC_M_EVAL128(...) _IC_M_EVAL64(EVAL64(__VA_ARGS__))
-#define _IC_M_EVAL64(...) _IC_M_EVAL32(EVAL32(__VA_ARGS__))
-#define _IC_M_EVAL32(...) _IC_M_EVAL16(EVAL16(__VA_ARGS__))
-#define _IC_M_EVAL16(...) _IC_M_EVAL8(EVAL8(__VA_ARGS__))
-#define _IC_M_EVAL8(...) _IC_M_EVAL4(EVAL4(__VA_ARGS__))
-#define _IC_M_EVAL4(...) _IC_M_EVAL2(EVAL2(__VA_ARGS__))
-#define _IC_M_EVAL2(...) _IC_M_EVAL1(EVAL1(__VA_ARGS__))
+#define _IC_M_EVAL1024(...) _IC_M_EVAL512(_IC_M_EVAL512(__VA_ARGS__))
+#define _IC_M_EVAL512(...) _IC_M_EVAL256(_IC_M_EVAL256(__VA_ARGS__))
+#define _IC_M_EVAL256(...) _IC_M_EVAL128(_IC_M_EVAL128(__VA_ARGS__))
+#define _IC_M_EVAL128(...) _IC_M_EVAL64(_IC_M_EVAL64(__VA_ARGS__))
+#define _IC_M_EVAL64(...) _IC_M_EVAL32(_IC_M_EVAL32(__VA_ARGS__))
+#define _IC_M_EVAL32(...) _IC_M_EVAL16(_IC_M_EVAL16(__VA_ARGS__))
+#define _IC_M_EVAL16(...) _IC_M_EVAL8(_IC_M_EVAL8(__VA_ARGS__))
+#define _IC_M_EVAL8(...) _IC_M_EVAL4(_IC_M_EVAL4(__VA_ARGS__))
+#define _IC_M_EVAL4(...) _IC_M_EVAL2(_IC_M_EVAL2(__VA_ARGS__))
+#define _IC_M_EVAL2(...) _IC_M_EVAL1(_IC_M_EVAL1(__VA_ARGS__))
 #define _IC_M_EVAL1(...) __VA_ARGS__
 
 
@@ -180,7 +180,7 @@
  * concatenated string will be produced. IS_PROBE then simply checks to see if
  * the PROBE was returned, cleanly converting the argument into a 1 or 0.
  */
-#define _IC_M_NOT(x) _IC_M_IS_PROBE(_IC_M_CAT(_NOT_, x))
+#define _IC_M_NOT(x) _IC_M_IS_PROBE(_IC_M_CAT(_IC_M__NOT_, x))
 #define _IC_M__NOT_0 _IC_M_PROBE()
 
 /**
@@ -192,7 +192,7 @@
 /**
  * Logical OR. Simply performs a lookup.
  */
-#define _IC_M_OR(a,b) _IC_M_CAT3(_OR_, a, b)
+#define _IC_M_OR(a,b) _IC_M_CAT3(_IC__OR_, a, b)
 #define _IC_M__OR_00 0
 #define _IC_M__OR_01 1
 #define _IC_M__OR_10 1
@@ -201,7 +201,7 @@
 /**
  * Logical AND. Simply performs a lookup.
  */
-#define _IC_M_AND(a,b) _IC_M_CAT3(_AND_, a, b)
+#define _IC_M_AND(a,b) _IC_M_CAT3(_IC_M__AND_, a, b)
 #define _IC_M__AND_00 0
 #define _IC_M__AND_01 0
 #define _IC_M__AND_10 0
@@ -224,7 +224,7 @@
  *    become the arguments to _IF_0 or _IF_1 and thus a selection is made!
  */
 #define _IC_M_IF(c) _IC_M__IF(_IC_M_BOOL(c))
-#define _IC_M__IF(c) _IC_M_CAT(_IF_,c)
+#define _IC_M__IF(c) _IC_M_CAT(_IC_M__IF_,c)
 #define _IC_M__IF_0(...)
 #define _IC_M__IF_1(...) __VA_ARGS__
 
@@ -239,7 +239,7 @@
  * The mechanism is analogous to IF.
  */
 #define _IC_M_IF_ELSE(c) _IC_M__IF_ELSE(_IC_M_BOOL(c))
-#define _IC_M__IF_ELSE(c) _IC_M_CAT(_IF_ELSE_,c)
+#define _IC_M__IF_ELSE(c) _IC_M_CAT(_IC__IF_ELSE_,c)
 #define _IC_M__IF_ELSE_0(t,f) f
 #define _IC_M__IF_ELSE_1(t,f) t
 
@@ -265,7 +265,7 @@
  * 4. BOOL is used to force non-zero results into 1 giving the clean 0 or 1
  *    output required.
  */
-#define _IC_M_HAS_ARGS(...) _IC_M_BOOL(_IC_M_FIRST(_END_OF_ARGUMENTS_ __VA_ARGS__)(0))
+#define _IC_M_HAS_ARGS(...) _IC_M_BOOL(_IC_M_FIRST(_IC_M__END_OF_ARGUMENTS_ __VA_ARGS__)(0))
 #define _IC_M__END_OF_ARGUMENTS_(...) _IC_M_BOOL(_IC_M_FIRST(__VA_ARGS__))
 
 
@@ -278,8 +278,8 @@
  *
  * Example Usage:
  *
- *   #define _IC_M_MAKE_HAPPY(x) happy_##x
- *   #define _IC_M_COMMA() ,
+ *   #define MAKE_HAPPY(x) happy_##x
+ *   #define COMMA() ,
  *   MAP(MAKE_HAPPY, COMMA, 1,2,3)
  *
  * Which expands to:
@@ -338,9 +338,9 @@
 #define _IC_M_MAP_INNER(op,sep,cur_val, ...) \
   op(cur_val) \
   _IC_M_IF(_IC_M_HAS_ARGS(__VA_ARGS__))( \
-    sep() _IC_M_DEFER2(_MAP_INNER)()(op, sep, ##__VA_ARGS__) \
+    sep() _IC_M_DEFER2(_IC_M__MAP_INNER)()(op, sep, ##__VA_ARGS__) \
   )
-#define _IC_M__MAP_INNER() MAP_INNER
+#define _IC_M__MAP_INNER() _IC_M_MAP_INNER
 
 
 /**
@@ -356,8 +356,8 @@
  *
  * Example:
  *
- *   #define _IC_M_MAKE_STATIC_VAR(type, name) static type name;
- *   MAP_WITH_ID(MAKE_STATIC_VAR, _IC_M_EMPTY, int, int, int, bool, char)
+ *   #define MAKE_STATIC_VAR(type, name) static type name;
+ *   _IC_M_MAP_WITH_ID(MAKE_STATIC_VAR, _IC_M_EMPTY, int, int, int, bool, char)
  *
  * Which expands to:
  *
@@ -370,9 +370,9 @@
 #define _IC_M_MAP_WITH_ID_INNER(op,sep,id,cur_val, ...) \
   op(cur_val,id) \
   _IC_M_IF(_IC_M_HAS_ARGS(__VA_ARGS__))( \
-    sep() _IC_M_DEFER2(_MAP_WITH_ID_INNER)()(op, sep, _IC_M_CAT(id,I), ##__VA_ARGS__) \
+    sep() _IC_M_DEFER2(_IC_M__MAP_WITH_ID_INNER)()(op, sep, _IC_M_CAT(id,I), ##__VA_ARGS__) \
   )
-#define _IC_M__MAP_WITH_ID_INNER() MAP_WITH_ID_INNER
+#define _IC_M__MAP_WITH_ID_INNER() _IC_M_MAP_WITH_ID_INNER
 
 
 /**
@@ -400,9 +400,9 @@
 #define _IC_M_MAP_PAIRS_INNER(op,sep,cur_val_1, cur_val_2, ...) \
   op(cur_val_1,cur_val_2) \
   _IC_M_IF(_IC_M_HAS_ARGS(__VA_ARGS__))( \
-    sep() _IC_M_DEFER2(_MAP_PAIRS_INNER)()(op, sep, __VA_ARGS__) \
+    sep() _IC_M_DEFER2(_IC_M__MAP_PAIRS_INNER)()(op, sep, __VA_ARGS__) \
   )
-#define _IC_M__MAP_PAIRS_INNER() MAP_PAIRS_INNER
+#define _IC_M__MAP_PAIRS_INNER() _IC_M_MAP_PAIRS_INNER
 
 /**
  * This is a variant of the MAP macro which iterates over a two-element sliding
@@ -435,16 +435,16 @@
   _IC_M_IF(_IC_M_HAS_ARGS(__VA_ARGS__))(op(cur_val,_IC_M_FIRST(__VA_ARGS__))) \
   _IC_M_IF(_IC_M_NOT(_IC_M_HAS_ARGS(__VA_ARGS__)))(last_op(cur_val)) \
   _IC_M_IF(_IC_M_HAS_ARGS(__VA_ARGS__))( \
-    sep() _IC_M_DEFER2(_MAP_SLIDE_INNER)()(op, last_op, sep, __VA_ARGS__) \
+    sep() _IC_M_DEFER2(_IC_M__MAP_SLIDE_INNER)()(op, last_op, sep, __VA_ARGS__) \
   )
-#define _IC_M__MAP_SLIDE_INNER() MAP_SLIDE_INNER
+#define _IC_M__MAP_SLIDE_INNER() _IC_M_MAP_SLIDE_INNER
 
 
 /**
  * Strip any excess commas from a set of arguments.
  */
 #define _IC_M_REMOVE_TRAILING_COMMAS(...) \
-	_IC_M_MAP(PASS, COMMA, __VA_ARGS__)
+	_IC_M_MAP(_IC_M_PASS, _IC_M_COMMA, __VA_ARGS__)
 
 
 #endif
