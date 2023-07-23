@@ -11,6 +11,7 @@
 BasedOnStyle: Google
 
 AlignAfterOpenBracket: BlockIndent
+AlignEscapedNewlines: DontAlign
 AlignTrailingComments: false
 AllowAllArgumentsOnNextLine: true
 AllowAllParametersOfDeclarationOnNextLine: true
@@ -96,6 +97,7 @@ IfMacros:
 IndentCaseBlocks: true
 IndentCaseLabels: false
 IndentWidth: 4
+MacroBlockBegin: '(_IC_M_IF|_IC_M_IF_ELSE)'
 MaxEmptyLinesToKeep: 2
 PointerAlignment: Middle
 SortIncludes: CaseSensitive
