@@ -10,10 +10,12 @@ FetchContent_Declare(
     GIT_TAG 1b9199ee380e203603b6649df9510db9cab147d9
 )
 FetchContent_MakeAvailable(unity)
-include_directories(${unity_SOURCE_DIR}/src)
 
+# Collect the test folders
 file(GLOB tests RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "test_*")
 message(STATUS "Collected tests [ ${tests} ]")
+
+# Build each test and add it to CTest
 foreach(test ${tests})
     project(${test})    
     file(GLOB_RECURSE src_files ${CMAKE_CURRENT_SOURCE_DIR}/${test}/*.c)
