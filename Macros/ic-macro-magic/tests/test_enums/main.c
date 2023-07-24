@@ -31,6 +31,7 @@ int main(void) {
 
     RUN_TEST(test_enum);
     RUN_TEST(test_enum_flags);
+    RUN_TEST(test_enum_strings);
 
     return UNITY_END();
 }
