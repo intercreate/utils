@@ -94,6 +94,8 @@ ForEachMacros:
   - 'TYPE_SECTION_FOREACH'
 IfMacros:
   - 'CHECKIF'
+  - '_IC_M_IF'
+  - '_IC_M_IF_ELSE'
 IndentCaseBlocks: true
 IndentCaseLabels: false
 IndentWidth: 4
