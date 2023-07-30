@@ -239,7 +239,7 @@
  * The mechanism is analogous to IF.
  */
 #define _IC_M_IF_ELSE(c) _IC_M__IF_ELSE(_IC_M_BOOL(c))
-#define _IC_M__IF_ELSE(c) _IC_M_CAT(_IC__IF_ELSE_,c)
+#define _IC_M__IF_ELSE(c) _IC_M_CAT(_IC_M__IF_ELSE_,c)
 #define _IC_M__IF_ELSE_0(t,f) f
 #define _IC_M__IF_ELSE_1(t,f) t
 
