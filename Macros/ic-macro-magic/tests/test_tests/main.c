@@ -1,4 +1,8 @@
-/**
+/*
+ * Copyright (c) 2023, Intercreate, Inc.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ *
  * This file is here to test the unity install and can also be used as a
  * template for new tests.
  */

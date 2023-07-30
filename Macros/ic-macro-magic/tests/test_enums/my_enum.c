@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2023, Intercreate, Inc.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 #include "my_enum.h"
 
 char const * const MY_NAMESPACE_STRINGS[] = {IC_STRING_MAP_FOR(NAMESPACED_LIST)};

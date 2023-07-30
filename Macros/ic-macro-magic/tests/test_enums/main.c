@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2023, Intercreate, Inc.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 #include "unity.h"
 
 void setUp(void) {} /* Is run before every test, put unit init calls here. */

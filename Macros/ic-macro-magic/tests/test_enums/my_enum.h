@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2023, Intercreate, Inc.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 #pragma once
 
 #include "../../include/ic_macro_magic.h"

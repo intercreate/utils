@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: Apache-2.0
+#
+# Copyright (c) 2023 Intercreate, Inc.
+# Author: J.P. Hutchins <jp@intercreate.io>
+
 cmake_minimum_required(VERSION 3.20)
 project(tests)
 
