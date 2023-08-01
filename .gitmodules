@@ -1,0 +1,3 @@
+[submodule "Macros/ic_macro_magic"]
+	path = Macros/ic_macro_magic
+	url = git@github.com:intercreate/ic-macro-magic.git
